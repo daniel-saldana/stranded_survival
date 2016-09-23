@@ -7,7 +7,7 @@ public class daniel : MonoBehaviour {
 	//dfgsdfhsghsdfghjdfgjh
 
 
-
+        //kjyeagj,hesgv,jhedv,aev,jhegv
 	// Use this for initialization
 	void Start () {
 	
