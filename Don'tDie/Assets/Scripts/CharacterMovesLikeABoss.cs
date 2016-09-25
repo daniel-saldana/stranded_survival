@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
-using UnityEngine.UI;
 
-[Serializable]
 public class CharacterMovesLikeABoss : MonoBehaviour
 {
     public Vector3 pos;
     public Rigidbody rig;
-	public float speed;
-    public float walkSpeed;
-	public float sprintSpeed;
-    //public float distance;
+    public float speed;
+    public float distance;
 
 	public Stat health;
 	public Stat energy;
@@ -22,8 +17,7 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     public Vector3 vel;
 
     public GameObject spawnPoint;
-
-
+    // Use this for initialization
     void Start ()
     {
         rig = GetComponent<Rigidbody>();
@@ -38,39 +32,15 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 		energy.Initialize ();
 	}
 	
+	// Update is called once per frame
 	void Update ()
     {
-		if (energy.CurrentVal <= 5) 
-		{
-			energy.CurrentVal = 4;
-			health.CurrentVal -= Time.deltaTime;
-		} else
-			health.CurrentVal = health.CurrentVal;
-			energy.CurrentVal -= Time.deltaTime;
+		energy.CurrentVal -= Time.deltaTime;
 
-		if (Input.GetKey (KeyCode.LeftShift)) 
-		{
-			speed = sprintSpeed;
-			energy.CurrentVal -= Time.deltaTime * 1.5f;
-		} else
-			speed = walkSpeed;
-			energy.CurrentVal = energy.CurrentVal;
-
-
-
-		if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
         }
-
-		/*
-		 * Figuring out a "Jump" button
-		 * 
-		 * if (Input.GetKey(KeyCode.Space))
-		{
-			rig.AddForce  * Vector3.up;
-		}*/
-
         if (Input.GetKey(KeyCode.W))
         {
             pos = gameObject.transform.rotation * Vector3.forward;
