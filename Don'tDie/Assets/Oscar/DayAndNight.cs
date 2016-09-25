@@ -3,22 +3,20 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-//public enum DayOrNight { Day, Night}
 public enum TimeClock {Twelve, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Eleven}
 
 public class DayAndNight : MonoBehaviour
 {
-
-  //  public DayOrNight currentDay;
-
     public TimeClock timeOfDay;
 
-    public float min;
+    public float sec;
+    public int min;
     public int hour;
 
     public bool am;
 
-    public Text displayTime;
+    public Text hourDisplay;
+    public Text minDisplay;
 
 	// Use this for initialization
 	void Start ()
@@ -29,17 +27,23 @@ public class DayAndNight : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        min += Time.deltaTime * 3;
+        sec += Time.deltaTime * 3;
         HoursOfDay();
     }
 
     public void HoursOfDay()
         {
 
+        if (sec >= 60)
+        {
+            min += 1;
+            sec = 0;
+        }
+
         if (min >= 60)
         {
             hour += 1;
-            min = 0;
+            min = 1;
         }
 
         if (hour >= 12)
@@ -48,66 +52,71 @@ public class DayAndNight : MonoBehaviour
             hour = 0;
         }
 
+        minDisplay.text = "0  " + min;
+        if(min >= 10)
+        {
+            minDisplay.text = "" + min;
+        }
         switch (hour)
              {
                 case 0:
                 timeOfDay = TimeClock.Twelve;
-                displayTime.text = "12:00"; 
+                hourDisplay.text = "12:"; 
                 break;
 
             case 1:
                 timeOfDay = TimeClock.One;
-                displayTime.text = "1:00";
+                hourDisplay.text = "1:";
                 break;
 
             case 2:
                 timeOfDay = TimeClock.Two;
-                displayTime.text = "2:00";
+                hourDisplay.text = "2:";
                 break;
 
             case 3:
                 timeOfDay = TimeClock.Three;
-                displayTime.text = "3:00";
+                hourDisplay.text = "3:";
                 break;
 
             case 4:
                 timeOfDay = TimeClock.Four;
-                displayTime.text = "4:00";
+                hourDisplay.text = "4:";
                 break;
 
             case 5:
                 timeOfDay = TimeClock.Five;
-                displayTime.text = "5:00";
+                hourDisplay.text = "5:";
                 break;
 
             case 6:
                 timeOfDay = TimeClock.Six;
-                displayTime.text = "6:00";
+                hourDisplay.text = "6:";
                 break;
 
             case 7:
                 timeOfDay = TimeClock.Seven;
-                displayTime.text = "7:00";
+                hourDisplay.text = "7:";
                 break;
 
             case 8:
                 timeOfDay = TimeClock.Eight;
-                displayTime.text = "8:00";
+                hourDisplay.text = "8:";
                 break;
 
             case 9:
                 timeOfDay = TimeClock.Nine;
-                displayTime.text = "9:00";
+                hourDisplay.text = "9:";
                 break;
 
             case 10:
                 timeOfDay = TimeClock.Ten;
-                displayTime.text = "10:00";
+                hourDisplay.text = "10:";
                 break;
 
             case 11:
                 timeOfDay = TimeClock.Eleven;
-                displayTime.text = "11:00";
+                hourDisplay.text = "11:";
                 break;
 
             default:
