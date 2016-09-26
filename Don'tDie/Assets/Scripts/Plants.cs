@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Plants : MonoBehaviour
 {
-
+	//public GameObject fruitPrefab = null;
     public int health = 3;
 
     // Use this for initialization
@@ -20,4 +20,15 @@ public class Plants : MonoBehaviour
             Destroy(gameObject);
         }
     }
+	/*public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health --;
+		}
+	}*/
+	/*public void OnDestroy()
+	{
+		Instantiate(fruitPrefab, gameObject.transform.position, gameObject.transform.rotation);
+	}*/
 }
