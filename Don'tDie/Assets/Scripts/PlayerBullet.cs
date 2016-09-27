@@ -7,14 +7,14 @@ public class PlayerBullet : MonoBehaviour
 	public Vector3 vec;
 	public Rigidbody rig;
 
-    public CharacterMovesLikeABoss val;
+    //public CharacterMovesLikeABoss val;
 
     // Use this for initialization
     void Start () 
 	{
+		speed = speed * Time.deltaTime;
 		rig = GetComponent<Rigidbody> ();
-        val = FindObjectOfType<CharacterMovesLikeABoss>();
-
+        //val = FindObjectOfType<CharacterMovesLikeABoss>();
     }
 
 	// Update is called once per frame
@@ -27,11 +27,12 @@ public class PlayerBullet : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
+		/*if (other.gameObject.name.StartsWith("Enemy"))
+		{
+			Destroy(gameObject);
+		}*/
+
         if (other.gameObject.name.StartsWith("Level"))
-        {
-            Destroy(gameObject);
-        }
-        if (other.gameObject.name.StartsWith("Enemy"))
         {
             Destroy(gameObject);
         }

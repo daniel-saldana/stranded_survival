@@ -8,15 +8,17 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 {
     public Vector3 pos;
     public Rigidbody rig;
-	public float speed;
-    public float walkSpeed;
-	public float sprintSpeed;
+	public float speed = 5;
+    public float walkSpeed = 5;
+	public float sprintSpeed = 15;
     //public float distance;
 
-	/*public int meatHeld = 0;
-	public int mineralsHeld = 0;
-	public int fruitHeld = 0;
-	public bool spearHeld = false;*/
+	public int currentRawMeat = 0;
+	public int currentCookedMeat = 0;
+	public int currentMinerals = 0;
+	public int currentRawFruit = 0;
+	public int currentCookedFruit = 0;
+	public int currentSpears = 0;
 
 	public Stat health;
 	public Stat energy;
@@ -32,6 +34,9 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     void Start ()
     {
         rig = GetComponent<Rigidbody>();
+		speed = speed * Time.deltaTime;
+		sprintSpeed = sprintSpeed * Time.deltaTime;
+		walkSpeed = walkSpeed * Time.deltaTime;
 
        // loseText.SetActive(false);
     
@@ -103,12 +108,43 @@ public class CharacterMovesLikeABoss : MonoBehaviour
        rig.velocity = pos * speed;
        vel = rig.velocity;
     }
-	/*public void OnCollisionEnter(Collision other)
+
+	public void OnCollisionEnter(Collision other)
 	{
-		if (other.gameObject.name.StartsWith ("Meat"))
+		if (other.gameObject.name.StartsWith ("Enemy")) 
 		{
-			meatHeld ++;
+			health.CurrentVal -= 20;
 		}
+	}
+
+	public void OnTriggerEnter (Collider other)
+	{
+		if (other.gameObject.name.StartsWith ("Meat")) 
+		{
+			currentRawMeat++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Fruit")) 
+		{
+			currentRawFruit++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Minerals")) 
+		{
+			currentMinerals++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Spear")) 
+		{
+			currentSpears++;
+			Destroy (other.gameObject);
+		}
+	
+
+		/*
 		if (other.gameObject.name.StartsWith ("MineralPickup"))
 		{
 			mineralsHeld ++;
@@ -125,7 +161,8 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 		{
 			Destroy(other.gameObject);
 		}
-	}*/
+		*/
+	}
 
     /*public void OnDestroy()
     {

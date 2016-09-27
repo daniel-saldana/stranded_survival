@@ -6,11 +6,11 @@ public class EnemyMovement : MonoBehaviour
 	public GameObject player;
 	public Transform playerPos;
 
-	//public int health = 5; 
+	public int health = 5; 
 	public float speed = 0.0f;
-	public bool active = false;
+	//public bool active = false;
 
-	//public GameObject meatPrefab = null;
+	public GameObject meatPrefab = null;
 
     // Use this for initialization
     void Start () 
@@ -22,10 +22,12 @@ public class EnemyMovement : MonoBehaviour
 
     public void Update()
     {
-		/*if (health <= 0)
+		if (health <= 0)
 		{
 			Destroy(gameObject);
-		}*/
+		}
+
+		Follow ();
     }
 
 	// Update is called once per frame
@@ -33,11 +35,11 @@ public class EnemyMovement : MonoBehaviour
 	{
 		if (player) 
 		{
-			transform.position = Vector3.MoveTowards (transform.position, playerPos.position, speed);
+			transform.position = Vector3.MoveTowards (transform.position, playerPos.position, speed * Time.deltaTime);
 		}
 	}
 
-	public void OnTriggerStay (Collider other)
+	/*public void OnTriggerStay (Collider other)
 	{
 		if (active == true) 
 		{
@@ -46,21 +48,23 @@ public class EnemyMovement : MonoBehaviour
 				Follow ();
 			}
 		}
-	}
-    public void OnCollisionEnter(Collision other)
+	}*/
+    public void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.name.StartsWith ("PlayerBullet"))
         {
-            Destroy(gameObject);
+			health -= 1;
+			Destroy (other.gameObject);
         }
 		/*if (other.gameObject.name.StartsWith ("PlayerTool"))
 		{
 			health --;
 		}*/
+
     }
-	/*public void OnDestroy()
+	public void OnDestroy()
     {
         Instantiate(meatPrefab, gameObject.transform.position, gameObject.transform.rotation);
-    }*/
+    }
 }
