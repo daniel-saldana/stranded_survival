@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Trees : MonoBehaviour
 {
-
+	//public GameObject spearPickupPrefab = null;
     public int health = 4;
 
     // Use this for initialization
@@ -19,4 +19,15 @@ public class Trees : MonoBehaviour
             Destroy (gameObject);
         }
 	}
+	/*public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health --;
+		}
+	}*/
+	/*public void OnDestroy()
+	{
+		Instantiate(spearPickupPrefab, gameObject.transform.position, gameObject.transform.rotation);
+	}*/
 }

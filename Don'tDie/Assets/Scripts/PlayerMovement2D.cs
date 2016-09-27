@@ -2,6 +2,27 @@
 using UnityEngine.UI;
 using System.Collections;
 
+
+/*
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ *
+ * I'm just using this script for reference on how to make some things work. 
+ * This won't be part of this project
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+
 public class PlayerMovement2D : MonoBehaviour
 {
     public GameObject playerWeapon = null;

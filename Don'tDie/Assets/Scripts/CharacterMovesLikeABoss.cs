@@ -13,6 +13,11 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public float sprintSpeed;
     //public float distance;
 
+	/*public int meatHeld = 0;
+	public int mineralsHeld = 0;
+	public int fruitHeld = 0;
+	public bool spearHeld = false;*/
+
 	public Stat health;
 	public Stat energy;
 
@@ -98,6 +103,29 @@ public class CharacterMovesLikeABoss : MonoBehaviour
        rig.velocity = pos * speed;
        vel = rig.velocity;
     }
+	/*public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("Meat"))
+		{
+			meatHeld ++;
+		}
+		if (other.gameObject.name.StartsWith ("MineralPickup"))
+		{
+			mineralsHeld ++;
+		}
+		if (other.gameObject.name.StartsWith ("Fruit"))
+		{
+			fruitHeld ++;
+		}
+		if (other.gameObject.name.StartsWith ("SpearPickup"))
+		{
+			spearHeld = true;
+		}
+		if (other.gameObject.tag == ("Pickup"))
+		{
+			Destroy(other.gameObject);
+		}
+	}*/
 
     /*public void OnDestroy()
     {

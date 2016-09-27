@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Minerals : MonoBehaviour
 {
-
+	//public GameObject mineralPickupPrefab = null;
     public int health = 5;
 
     // Use this for initialization
@@ -20,4 +20,15 @@ public class Minerals : MonoBehaviour
             Destroy(gameObject);
         }
     }
+	/*public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health --;
+		}
+	}*/
+	/*public void OnDestroy()
+	{
+		Instantiate(mineralPickupPrefab, gameObject.transform.position, gameObject.transform.rotation);
+	}*/
 }

@@ -4,39 +4,28 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour 
 {
 	public GameObject player;
-
 	public Transform playerPos;
 
+	//public int health = 5; 
 	public float speed = 0.0f;
 	public bool active = false;
 
-    public CharacterMovesLikeABoss val;
+	//public GameObject meatPrefab = null;
 
     // Use this for initialization
     void Start () 
 	{
 		player = GameObject.Find ("Player");
 		playerPos = player.transform;
-
-        val = FindObjectOfType<CharacterMovesLikeABoss>();
     }
 
 
     public void Update()
     {
-        if (val.vel.x != 0.0f)
-        {
-            active = true;
-        }
-
-        else if (val.vel.z != 0.0f)
-        {
-            active = (true);
-        }
-
-        else
-
-            active = false;
+		/*if (health <= 0)
+		{
+			Destroy(gameObject);
+		}*/
     }
 
 	// Update is called once per frame
@@ -65,5 +54,13 @@ public class EnemyMovement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+		/*if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health --;
+		}*/
     }
+	/*public void OnDestroy()
+    {
+        Instantiate(meatPrefab, gameObject.transform.position, gameObject.transform.rotation);
+    }*/
 }

@@ -1,6 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+
+
+
+/*
+ * This script is used with any on screen bar like "Health" or "Energy".
+ * This isn't actually attached to any objects, it's just used by the BarScript.
+ */
+
+
+
+
 [Serializable]
 public class Stat 
 {

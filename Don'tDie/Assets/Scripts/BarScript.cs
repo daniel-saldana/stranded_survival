@@ -2,6 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
+
+/*
+ * This script is used with any on screen bar like "Health" or "Energy".
+ */
+
+
 public class BarScript : MonoBehaviour 
 {
 	[SerializeField]
