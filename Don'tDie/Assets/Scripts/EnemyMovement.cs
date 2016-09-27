@@ -22,11 +22,11 @@ public class EnemyMovement : MonoBehaviour
 
     public void Update()
     {
+		//transform.LookAt (playerPos);
 		if (health <= 0)
 		{
 			Destroy(gameObject);
 		}
-
 		Follow ();
     }
 

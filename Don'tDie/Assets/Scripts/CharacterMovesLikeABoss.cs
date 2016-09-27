@@ -23,7 +23,7 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public Stat health;
 	public Stat energy;
 
-    //public GameObject loseText = null;
+    public GameObject deathScreen = null;
 
     public GameObject bulletPrefab = null;
     public Vector3 vel;
@@ -37,15 +37,13 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 		speed = speed * Time.deltaTime;
 		sprintSpeed = sprintSpeed * Time.deltaTime;
 		walkSpeed = walkSpeed * Time.deltaTime;
-
-       // loseText.SetActive(false);
-    
 	}
 
 	public void Awake()
 	{
 		health.Initialize ();
 		energy.Initialize ();
+		deathScreen.SetActive(false);
 	}
 	
 	void Update ()
@@ -107,6 +105,37 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         }
        rig.velocity = pos * speed;
        vel = rig.velocity;
+
+		if (Input.GetKeyDown (KeyCode.Alpha1) && currentRawFruit > 0) 
+		{
+			health.CurrentVal += 5;
+			energy.CurrentVal += 5;
+			currentRawFruit -= 1;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha2) && currentRawMeat > 0) 
+		{
+			health.CurrentVal += 10;
+			energy.CurrentVal += 10;
+			currentRawMeat -= 1;
+		}
+
+		if (health.CurrentVal <=0)
+		{
+			speed = 0;
+			walkSpeed = 0;
+			sprintSpeed = 0;
+			deathScreen.SetActive (true);
+		}
+
+		if (health.CurrentVal >= health.MaxVal) 
+		{
+			health.CurrentVal = health.MaxVal;
+		}
+		if (energy.CurrentVal >= energy.MaxVal) 
+		{
+			energy.CurrentVal = energy.MaxVal;
+		}
     }
 
 	public void OnCollisionEnter(Collision other)
