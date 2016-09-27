@@ -73,22 +73,22 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            pos = gameObject.transform.rotation * Vector3.forward;
+            pos = gameObject.transform.rotation * new Vector3(pos.x,0,1);
         }
 
         else if (Input.GetKey(KeyCode.A))
         {
-            pos = gameObject.transform.rotation * Vector3.left;
+            pos = gameObject.transform.rotation * new Vector3 (-1,0,pos.z);
         }
 
         else if (Input.GetKey(KeyCode.S))
         {
-            pos = gameObject.transform.rotation * Vector3.back;
+            pos = gameObject.transform.rotation * new Vector3 (pos.x,0,-1);
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
-            pos = gameObject.transform.rotation * Vector3.right;
+            pos = gameObject.transform.rotation * new Vector3 (1,0,pos.z);
         }
 
         else

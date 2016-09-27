@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Oscar/Oscar's scene.unity
+- path: Assets/StrandedGame.unity
   isLoaded: 1
   isActive: 1
