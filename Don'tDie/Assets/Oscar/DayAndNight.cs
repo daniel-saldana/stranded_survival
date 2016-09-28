@@ -12,22 +12,43 @@ public class DayAndNight : MonoBehaviour
     public float sec;
     public int min;
     public int hour;
+    public int timeSpeedUp;
 
     public bool am;
 
-    public Text hourDisplay;
-    public Text minDisplay;
+    private int hourDisplay;
+
+    public Text timeDisplay;
+
+    public Image panel;
+
+    public Color dayColor;
+    public Color nightColor;
 
 	// Use this for initialization
 	void Start ()
     {
-       
-	}
+       timeDisplay = FindObjectOfType<Text>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        sec += Time.deltaTime * 3;
+        sec += Time.deltaTime * timeSpeedUp;
+
+        if(am)
+        {
+            panel.color = Color.Lerp(dayColor, nightColor, (Time.time * timeSpeedUp)/ 43200);
+            //panel.color = dayColor;   
+            timeDisplay.color = Color.black;
+        }
+        if (!am)
+        {
+            panel.color = Color.Lerp(dayColor, nightColor, Mathf.PingPong(Time.time, 2));
+            //panel.color = nightColor;
+            timeDisplay.color = Color.white;
+        }
+
         HoursOfDay();
     }
 
@@ -43,7 +64,7 @@ public class DayAndNight : MonoBehaviour
         if (min >= 60)
         {
             hour += 1;
-            min = 1;
+            min = 0;
         }
 
         if (hour >= 12)
@@ -52,71 +73,71 @@ public class DayAndNight : MonoBehaviour
             hour = 0;
         }
 
-        minDisplay.text = "0  " + min;
+        timeDisplay.text = hourDisplay +" : 0  " + min;
         if(min >= 10)
         {
-            minDisplay.text = "" + min;
+            timeDisplay.text = hourDisplay + " : " + min;
         }
         switch (hour)
              {
                 case 0:
                 timeOfDay = TimeClock.Twelve;
-                hourDisplay.text = "12:"; 
+                hourDisplay = 12; 
                 break;
 
             case 1:
                 timeOfDay = TimeClock.One;
-                hourDisplay.text = "1:";
+                hourDisplay = 1;
                 break;
 
             case 2:
                 timeOfDay = TimeClock.Two;
-                hourDisplay.text = "2:";
+                hourDisplay = 2;
                 break;
 
             case 3:
                 timeOfDay = TimeClock.Three;
-                hourDisplay.text = "3:";
+                hourDisplay = 3;
                 break;
 
             case 4:
                 timeOfDay = TimeClock.Four;
-                hourDisplay.text = "4:";
+                hourDisplay = 4;
                 break;
 
             case 5:
                 timeOfDay = TimeClock.Five;
-                hourDisplay.text = "5:";
+                hourDisplay = 5;
                 break;
 
             case 6:
                 timeOfDay = TimeClock.Six;
-                hourDisplay.text = "6:";
+                hourDisplay = 6;
                 break;
 
             case 7:
                 timeOfDay = TimeClock.Seven;
-                hourDisplay.text = "7:";
+                hourDisplay = 7;
                 break;
 
             case 8:
                 timeOfDay = TimeClock.Eight;
-                hourDisplay.text = "8:";
+                hourDisplay = 8;
                 break;
 
             case 9:
                 timeOfDay = TimeClock.Nine;
-                hourDisplay.text = "9:";
+                hourDisplay = 9;
                 break;
 
             case 10:
                 timeOfDay = TimeClock.Ten;
-                hourDisplay.text = "10:";
+                hourDisplay = 10;
                 break;
 
             case 11:
                 timeOfDay = TimeClock.Eleven;
-                hourDisplay.text = "11:";
+                hourDisplay = 11;
                 break;
 
             default:
@@ -124,9 +145,6 @@ public class DayAndNight : MonoBehaviour
                 timeOfDay = TimeClock.Twelve;
                 break;
 
+          }        
         }
-        
-        
-        }
-       
 }
