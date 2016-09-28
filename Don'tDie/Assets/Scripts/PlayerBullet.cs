@@ -22,7 +22,7 @@ public class PlayerBullet : MonoBehaviour
 	{
 			vec = gameObject.transform.rotation * Vector3.forward;
 			rig.velocity = vec * speed;
-			Destroy (gameObject, 4);
+			Destroy (gameObject, 2);
     }
 
     public void OnCollisionEnter(Collision other)
