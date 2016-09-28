@@ -7,6 +7,12 @@ public class BaseStatesOfPlayer : MonoBehaviour
 {
     public int health;
 
+    public int cookedMeat;
+
+    public int rawMeat;
+
     public Weapons currentWeapon;
+
+    public bool canCookMeat;
 
 }
