@@ -13,6 +13,7 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public float sprintSpeed;
     //public float distance;
 
+
 	public Stat health;
 	public Stat energy;
 
@@ -23,10 +24,14 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
     public GameObject spawnPoint;
 
+    public KeyCode switchWepInput = KeyCode.Tab;
+
+    public BaseStatesOfPlayer baseStates;
 
     void Start ()
     {
         rig = GetComponent<Rigidbody>();
+        baseStates = GetComponent<BaseStatesOfPlayer>();
 
        // loseText.SetActive(false);
     
@@ -40,6 +45,11 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	
 	void Update ()
     {
+        if (Input.GetKeyDown(switchWepInput))
+        {
+            SwitchWeapon();
+        }
+
 		if (energy.CurrentVal <= 5) 
 		{
 			energy.CurrentVal = 4;
@@ -73,22 +83,22 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            pos = gameObject.transform.rotation * new Vector3(pos.x,0,1);
+            pos = gameObject.transform.rotation * Vector3.forward;
         }
 
         else if (Input.GetKey(KeyCode.A))
         {
-            pos = gameObject.transform.rotation * new Vector3 (-1,0,pos.z);
+            pos = gameObject.transform.rotation * Vector3.left;
         }
 
         else if (Input.GetKey(KeyCode.S))
         {
-            pos = gameObject.transform.rotation * new Vector3 (pos.x,0,-1);
+            pos = gameObject.transform.rotation * Vector3.back;
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
-            pos = gameObject.transform.rotation * new Vector3 (1,0,pos.z);
+            pos = gameObject.transform.rotation * Vector3.right;
         }
 
         else
@@ -98,6 +108,31 @@ public class CharacterMovesLikeABoss : MonoBehaviour
        rig.velocity = pos * speed;
        vel = rig.velocity;
     }
+
+    void SwitchWeapon()
+    {
+        baseStates.wepCounter++;
+
+        if (baseStates.wepCounter >= 3)
+        {
+            baseStates.wepCounter = 0;
+        }
+
+        if (baseStates.wepCounter == 0)
+        {
+            baseStates.currentWeapon = Weapons.Punch;
+        }
+        if (baseStates.wepCounter == 1)
+        {
+            baseStates.currentWeapon = Weapons.Spear;
+        }
+        if (baseStates.wepCounter == 2)
+        {
+            baseStates.currentWeapon = Weapons.Gun;
+        }
+    }
+
+
 
     /*public void OnDestroy()
     {

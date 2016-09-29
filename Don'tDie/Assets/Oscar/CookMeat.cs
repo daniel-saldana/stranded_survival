@@ -31,8 +31,16 @@ public class CookMeat : MonoBehaviour
     {
         if(other.gameObject.name == "Stove" && Input.GetKeyDown(KeyCode.Space) && baseState.canCookMeat)
         {
-            baseState.rawMeat -= 1;
-            baseState.cookedMeat += 1;
+            if (baseState.rawMeat > 0)
+            {
+                baseState.rawMeat -= 1;
+                baseState.cookedMeat += 1;
+            }
+
+            else
+            {
+                Debug.Log("No Raw Meat To Cook");
+            }
         }
     }
 
