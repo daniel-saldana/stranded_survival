@@ -68,9 +68,10 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
 
 
-		if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1") && baseStates.bulletsHeld > 0)
         {
             Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
+			baseStates.bulletsHeld -= 1;
         }
 
 		/*

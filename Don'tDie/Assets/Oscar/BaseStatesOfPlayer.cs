@@ -5,7 +5,11 @@ public enum Weapons { Punch, Gun, Spear}
 
 public class BaseStatesOfPlayer : MonoBehaviour
 {
-    //public int health;
+    //public int playerhealth;
+
+	public int oreHeld;
+
+	public int bulletsHeld;
 
     public int cookedMeat;
 
@@ -17,4 +21,5 @@ public class BaseStatesOfPlayer : MonoBehaviour
 
     public bool canCookMeat;
 
+	public bool doRockScience;
 }
