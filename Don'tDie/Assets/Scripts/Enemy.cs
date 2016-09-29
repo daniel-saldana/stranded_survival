@@ -20,4 +20,20 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+	public void OnCollisionEnter(Collision other)
+	{
+
+		if (other.gameObject.name.StartsWith ("PlayerBullet"))
+		{
+			Destroy(gameObject);
+		}
+		if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health -= 1;
+		}
+		if (other.gameObject.name.StartsWith ("Spear"))
+		{
+			health -= 2;
+		}
+	}
 }

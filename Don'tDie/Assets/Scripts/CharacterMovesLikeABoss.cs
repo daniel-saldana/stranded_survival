@@ -19,6 +19,10 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     //public GameObject loseText = null;
 
     public GameObject bulletPrefab = null;
+
+	//public GameObject spearPrefab = null;
+	//public GameObject playerTool = null;
+
     public Vector3 vel;
 
     public GameObject spawnPoint;
@@ -62,6 +66,27 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         {
             Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
         }
+
+		/*if (Input.GetButtonDown("Fire2"))
+		{
+			Instantiate(spearPrefab, spawnPoint.transform.position, transform.rotation);
+		}
+		if (Input.GetButtonDown("SpearMelee"))
+		{
+			spearPrefab.SetActive (true);
+		}
+		if (Input.GetButtonUp("SpearMelee"))
+		{
+			spearPrefab.SetActive (false);
+		}
+		if (Input.GetButtonDown("Melee"))
+		{
+			playerTool.SetActive (true);
+		}
+		if (Input.GetButtonUp("Melee"))
+		{
+			playerTool.SetActive (false);
+		}*/
 
 		/*
 		 * Figuring out a "Jump" button
