@@ -11,7 +11,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public float speed = 5;
     public float walkSpeed = 5;
 	public float sprintSpeed = 15;
-    //public float distance;
 
  //  public  Animator anim;
 	public int currentRawMeat = 0;
@@ -20,7 +19,9 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public int currentRawFruit = 0;
 	public int currentCookedFruit = 0;
 	public int currentSpears = 0;
+	public int currentAmmo = 0;
 
+	//public UIManager rawMeat;
 
 	public Stat health;
 	public Stat energy;
@@ -28,6 +29,8 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     public GameObject deathScreen = null;
 
     public GameObject bulletPrefab = null;
+
+	public GameObject spearPrefab = null;
     public Vector3 vel;
 
     public GameObject spawnPoint;
@@ -60,6 +63,9 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     {
         baseStates.weaponStrength = 2;
 
+		rig.velocity = pos * speed;
+		vel = rig.velocity;
+
         if (Input.GetKeyDown(switchWepInput))
         {
             SwitchWeapon();
@@ -83,30 +89,22 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
 
 
-		if (Input.GetButtonDown("Fire1") && baseStates.bulletsHeld > 0 && baseStates.currentWeapon == Weapons.Gun)
+		if (Input.GetButtonDown("Fire1") && currentAmmo > 0 && baseStates.currentWeapon == Weapons.Gun)
         {
             Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
-			baseStates.bulletsHeld -= 1;
+			currentAmmo -= 1;
         }
 
-        if (Input.GetButtonDown("Fire1") && baseStates.spear > 0 && baseStates.currentWeapon == Weapons.Spear)
+		if (Input.GetButtonDown("Fire1") && currentSpears > 0 && baseStates.currentWeapon == Weapons.Spear)
         {
-            Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
-            baseStates.spear -= 1;
+            Instantiate(spearPrefab, spawnPoint.transform.position, transform.rotation);
+			currentSpears -= 1;
         }
 
        //if (Input.GetButtonDown("Fire1") && baseStates.currentWeapon == Weapons.Punch)
        // {
         //    anim.SetTrigger("HandChop");
        // }
-
-        /*
-		 * Figuring out a "Jump" button
-		 * 
-		 * if (Input.GetKey(KeyCode.Space))
-		{
-			rig.AddForce  * Vector3.up;
-		}*/
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -132,8 +130,7 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         {
             pos = Vector3.zero;
         }
-       rig.velocity = pos * speed;
-       vel = rig.velocity;
+   
 
 		if (Input.GetKeyDown (KeyCode.Alpha1) && currentRawFruit > 0) 
 		{
@@ -144,9 +141,23 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.Alpha2) && currentRawMeat > 0) 
 		{
+			health.CurrentVal += 8;
+			energy.CurrentVal += 8;
+			currentRawMeat -= 1;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha1) && currentCookedFruit > 0) 
+		{
 			health.CurrentVal += 10;
 			energy.CurrentVal += 10;
-			currentRawMeat -= 1;
+			currentCookedFruit -= 1;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha2) && currentCookedMeat > 0) 
+		{
+			health.CurrentVal += 15;
+			energy.CurrentVal += 15;
+			currentCookedMeat -= 1;
 		}
 
 		if (health.CurrentVal <=0)
@@ -185,41 +196,22 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
 		if (other.gameObject.name.StartsWith ("Fruit")) 
 		{
-			currentRawFruit++;
+			currentRawFruit += 1;
 			Destroy (other.gameObject);
 		}
 
 		if (other.gameObject.name.StartsWith ("Minerals")) 
 		{
-			currentMinerals++;
+			currentMinerals += 5;
 			Destroy (other.gameObject);
 		}
 
-		if (other.gameObject.name.StartsWith ("Spear")) 
+		if (other.gameObject.name.StartsWith ("SpearPickup")) 
 		{
 			currentSpears++;
 			Destroy (other.gameObject);
 		}
 	
-
-		/*
-		if (other.gameObject.name.StartsWith ("MineralPickup"))
-		{
-			mineralsHeld ++;
-		}
-		if (other.gameObject.name.StartsWith ("Fruit"))
-		{
-			fruitHeld ++;
-		}
-		if (other.gameObject.name.StartsWith ("SpearPickup"))
-		{
-			spearHeld = true;
-		}
-		if (other.gameObject.tag == ("Pickup"))
-		{
-			Destroy(other.gameObject);
-		}
-		*/
 	}
 
     void SwitchWeapon()
@@ -233,25 +225,20 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
         if (baseStates.wepCounter == 0)
         {
-            baseStates.currentWeapon = Weapons.Punch;
-            baseStates.weaponStrength = 2;
+			baseStates.currentWeapon = Weapons.Unarmed;
+            baseStates.weaponStrength = 1;
         }
-        if (baseStates.wepCounter == 1)
+
+        else if (baseStates.wepCounter == 1)
         {
             baseStates.currentWeapon = Weapons.Spear;
-            baseStates.weaponStrength = 6;
-        }
-        if (baseStates.wepCounter == 2)
-        {
-            baseStates.currentWeapon = Weapons.Gun;
             baseStates.weaponStrength = 4;
         }
+
+        else if (baseStates.wepCounter == 2)
+        {
+            baseStates.currentWeapon = Weapons.Gun;
+            baseStates.weaponStrength = 8;
+        }
     }
-
-
-
-    /*public void OnDestroy()
-    {
-        loseText.SetActive(true);
-    }*/
 }

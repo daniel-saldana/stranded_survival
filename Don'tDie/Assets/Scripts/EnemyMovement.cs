@@ -12,9 +12,12 @@ public class EnemyMovement : MonoBehaviour
 
 	public GameObject meatPrefab = null;
 
+	public BaseStatesOfPlayer bs;
+
     // Use this for initialization
     void Start () 
 	{
+		bs = FindObjectOfType<BaseStatesOfPlayer>();
 		player = GameObject.Find ("Player");
 		playerPos = player.transform;
         
@@ -26,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
 		//transform.LookAt (playerPos);
 		if (health <= 0)
 		{
+			Instantiate(meatPrefab, gameObject.transform.position, gameObject.transform.rotation);
 			Destroy(gameObject);
 		}
 		Follow ();
@@ -40,32 +44,28 @@ public class EnemyMovement : MonoBehaviour
 		}
 	}
 
-	/*public void OnTriggerStay (Collider other)
-	{
-		if (active == true) 
-		{
-			if (player) 
-			{
-				Follow ();
-			}
-		}
-	}*/
     public void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.name.StartsWith ("PlayerBullet"))
         {
-			health -= 1;
+			health -= 8;
 			Destroy (other.gameObject);
         }
+		if(other.gameObject.name == "Hand")
+		{
+			health -= 3;
+		}
+
+		if(other.gameObject.name.StartsWith ("SpearPrefab"))
+		{
+			health -= 6;
+		}
+
 		/*if (other.gameObject.name.StartsWith ("PlayerTool"))
 		{
 			health --;
 		}*/
 
-    }
-	public void OnDestroy()
-    {
-        Instantiate(meatPrefab, gameObject.transform.position, gameObject.transform.rotation);
     }
 }

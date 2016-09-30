@@ -7,10 +7,15 @@ public class RandomSpawner : MonoBehaviour
 
 	bool isSpawning = false;
 
+	//public float minStartTime = 0.1f;
+	//public float maxStartTime = 0.2f;
+
 	public float minTime = 2.0f;
 	public float maxTime = 15.0f;
 
-    public int randomSpawnRange;
+    public int randomSpawnRangeX;
+	public int randomSpawnRangeZ;
+
     public Vector3 randomRangeSpwan;
 
     public DayAndNight nightTime;
@@ -27,7 +32,9 @@ public class RandomSpawner : MonoBehaviour
 	public float MaxZ = 200;*/
 
 	//An Array to pick spawnable Enemies and/or Resources.
+	//public GameObject[] environmentObjects;
 	public GameObject[] spawnables; 
+
 
 	IEnumerator SpawnObject(int index, float seconds)
 	{
@@ -37,19 +44,35 @@ public class RandomSpawner : MonoBehaviour
 		Instantiate (spawnables[index], randomRangeSpwan, transform.rotation);
 		isSpawning = false;
 	}
+
+	/*IEnumerator SpawnEnvironment (int index, float seconds)
+	{
+		Instantiate (environmentObjects[index], randomRangeSpwan, transform.rotation);
+		isSpawning = false;
+		yield break;
+	}*/
+
 	void Update ()
 	{
 		if (! isSpawning) 
 		{
-            randomSpawnRange = Random.Range(-400, 400);
-            randomRangeSpwan = new Vector3(randomSpawnRange, 0.5f, randomSpawnRange);
+			randomSpawnRangeX = Random.Range(-350, 350);
+			randomSpawnRangeZ = Random.Range(-350, 350);
+
+            randomRangeSpwan = new Vector3(randomSpawnRangeX, 0.002f, randomSpawnRangeZ);
+
             isSpawning = true;
+
 			int spawnIndex = Random.Range(0, spawnables.Length);
+
+			//int environmentIndex = Random.Range (0, environmentObjects.Length);
+
 			StartCoroutine(SpawnObject(spawnIndex, Random.Range(minTime, maxTime)));
+			//StartCoroutine(SpawnEnvironment(environmentIndex, Random.Range(minStartTime, maxStartTime)));
 
             if (nightTime.am == false && maxTime > 4)
             {
-                maxTime -= 1;
+                maxTime = 4;
             }
             else if(nightTime.am)
             {

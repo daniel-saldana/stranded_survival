@@ -6,10 +6,12 @@ public class CookMeat : MonoBehaviour
 
 
     public BaseStatesOfPlayer baseState;
+	public CharacterMovesLikeABoss cb;
 
 	// Use this for initialization
 	void Start ()
     {
+		cb = FindObjectOfType<CharacterMovesLikeABoss>();
         baseState = GetComponent<BaseStatesOfPlayer>();
 	}
 	
@@ -21,14 +23,19 @@ public class CookMeat : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Stove" && baseState.rawMeat > 0)
+		if(other.gameObject.name == "Stove" && cb.currentRawMeat > 0)
         {
             baseState.canCookMeat = true;
         }
 
-        if (other.gameObject.name == "Wood" && baseState.treeBark > 1)
+		if(other.gameObject.name == "Stove" && cb.currentRawFruit > 0)
+		{
+			baseState.canCookFruit = true;
+		}
+
+		if (other.gameObject.name == "MineralLab" && cb.currentMinerals > 0)
         {
-            baseState.canWoodWork = true;
+			baseState.doRockScience = true;
         }
     }
 
@@ -36,10 +43,10 @@ public class CookMeat : MonoBehaviour
     {
         if(other.gameObject.name == "Stove" && Input.GetKeyDown(KeyCode.E) && baseState.canCookMeat)
         {
-            if (baseState.rawMeat > 0)
+			if (cb.currentRawMeat > 0)
             {
-                baseState.rawMeat -= 1;
-                baseState.cookedMeat += 1;
+				cb.currentRawMeat -= 1;
+				cb.currentCookedMeat += 1;
             }
 
             else
@@ -48,17 +55,31 @@ public class CookMeat : MonoBehaviour
             }
         }
 
-        if (other.gameObject.name == "Wood" && Input.GetKeyDown(KeyCode.E) && baseState.canWoodWork)
+		if(other.gameObject.name == "Stove" && Input.GetKeyDown(KeyCode.E) && baseState.canCookFruit)
+		{
+			if (cb.currentRawFruit > 0)
+			{
+				cb.currentRawFruit -= 1;
+				cb.currentCookedFruit += 1;
+			}
+
+			else
+			{
+				Debug.Log("No Raw Meat To Cook");
+			}
+		}
+
+		if (other.gameObject.name == "MineralLab" && Input.GetKeyDown(KeyCode.Q) && baseState.doRockScience)
         {
-            if (baseState.treeBark > 1)
+			if (cb.currentMinerals > 0)
             {
-                baseState.treeBark -= 2;
-                baseState.spear += 1;
+				cb.currentMinerals -= 1;
+				cb.currentAmmo += 1;
             }
 
             else
             {
-                Debug.Log("No tree branches");
+                Debug.Log("No Minerals");
             }
         }
     }
@@ -72,7 +93,7 @@ public class CookMeat : MonoBehaviour
 
         if(other.gameObject.name == "Wood")
         {
-            baseState.canWoodWork = false;
+			baseState.doRockScience = false;
         }
     }
 }

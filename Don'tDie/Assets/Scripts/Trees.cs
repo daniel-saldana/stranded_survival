@@ -4,13 +4,14 @@ using System.Collections;
 public class Trees : MonoBehaviour
 {
 
-	//public GameObject spearPickupPrefab = null;
+	public GameObject spearPickupPrefab = null;
     public int health = 4;
 
     public BaseStatesOfPlayer bs;
 
     // Use this for initialization
-    void Start () {
+    void Start () 
+	{
         bs = FindObjectOfType<BaseStatesOfPlayer>();
 	}
 
@@ -19,6 +20,7 @@ public class Trees : MonoBehaviour
     {
         if (health <= 0)
         {
+			Instantiate (spearPickupPrefab, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }
 	}
@@ -30,16 +32,4 @@ public class Trees : MonoBehaviour
             health -= bs.weaponStrength;
         }
     }
-}
-	/*public void OnCollisionEnter(Collision other)
-	{
-		if (other.gameObject.name.StartsWith ("PlayerTool"))
-		{
-			health --;
-		}
-	}*/
-	/*public void OnDestroy()
-	{
-		Instantiate(spearPickupPrefab, gameObject.transform.position, gameObject.transform.rotation);
-	}*/
 }

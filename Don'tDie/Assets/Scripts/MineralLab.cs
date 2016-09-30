@@ -3,13 +3,15 @@ using System.Collections;
 
 public class MineralLab : MonoBehaviour 
 {
-
+	/*
 
 	public BaseStatesOfPlayer baseState;
+	public CharacterMovesLikeABoss cb;
 
 	// Use this for initialization
 	void Start ()
 	{
+		cb = GetComponent<CharacterMovesLikeABoss>();
 		baseState = GetComponent<BaseStatesOfPlayer>();
 	}
 
@@ -21,7 +23,7 @@ public class MineralLab : MonoBehaviour
 
 	public void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.name == "MineralLab" && baseState.oreHeld > 0)
+		if(other.gameObject.name == "MineralLab" cb.currentMinerals> 0)
 		{
 			baseState.doRockScience = true;
 		}
@@ -50,5 +52,5 @@ public class MineralLab : MonoBehaviour
 		{
 			baseState.doRockScience = false;
 		}
-	}
+	}*/
 }

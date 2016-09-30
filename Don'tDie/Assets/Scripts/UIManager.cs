@@ -9,11 +9,12 @@ public class UIManager : MonoBehaviour
 
     public Text rawMeat;
     public Text cookedMeat;
-    public Text ores;
+    public Text minerals;
     public Text bullets;
     public Text currentWeapon;
-    public Text spear;
-    public Text treeBark;
+    public Text spears;
+    public Text rawFruit;
+	public Text cookedFruit;
     public GameObject materialPanel;
     public bool panelOn;
 
@@ -29,13 +30,14 @@ public class UIManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        bullets.text = "Bullets = " + baseStates.bulletsHeld;
-        rawMeat.text = "Raw Meat = " + baseStates.rawMeat;
-        cookedMeat.text = "Cooked Meat = " + baseStates.cookedMeat;
-        ores.text = "Ores = " + baseStates.oreHeld;
-        currentWeapon.text = " Current Weapon: " + baseStates.currentWeapon;
-        spear.text = "Spears = " + baseStates.spear;
-        treeBark.text = "Tree Bark = " + baseStates.treeBark;
+		bullets.text = "" + cb.currentAmmo;
+        rawMeat.text = "" + cb.currentRawMeat;
+		cookedMeat.text = "" + cb.currentCookedMeat;
+		minerals.text = "" + cb.currentMinerals;
+        currentWeapon.text = "" + baseStates.currentWeapon;
+		spears.text = "" + cb.currentSpears;
+		rawFruit.text = "" + cb.currentRawFruit;
+		cookedFruit.text = "" + cb.currentCookedFruit;
 
         if(panelOn)
         {
@@ -48,16 +50,16 @@ public class UIManager : MonoBehaviour
         }
 	}
 
-    public void ChangePanel()
+    /*public void ChangePanel()
     {
         panelOn = !panelOn;
     }
 
-    public void EatRawMeat()
+    /*public void EatRawMeat()
     {
-        if(baseStates.rawMeat > 0)
+        if(cb.currentRawMeat > 0)
         {
-            baseStates.rawMeat -= 1;
+            cb.currentRawMeat -= 1;
             cb.energy.CurrentVal += 10;
             cb.health.CurrentVal -= 5; 
         }
@@ -80,6 +82,6 @@ public class UIManager : MonoBehaviour
             baseStates.treeBark -= 1;
             cb.energy.CurrentVal += 5;
         }
-    }
+    }*/
 
 }
