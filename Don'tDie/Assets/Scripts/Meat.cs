@@ -4,20 +4,26 @@ using System.Collections;
 public class Meat : MonoBehaviour
 {
 
-    public int healthRaw = 2;
-    //Health gained from consuming Meat
-    public int healthCooked = 5;
-    //Health gained from consuming Meat in base
+    BaseStatesOfPlayer bp;
 
     // Use this for initialization
     void Start ()
     {
-	
-	}
+        bp = FindObjectOfType<BaseStatesOfPlayer>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
 
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            bp.rawMeat += 1;
+            Destroy(gameObject);
+        }
     }
 }

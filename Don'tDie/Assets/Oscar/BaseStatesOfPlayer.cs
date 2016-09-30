@@ -20,6 +20,8 @@ public class BaseStatesOfPlayer : MonoBehaviour
 
     public int wepCounter;
 
+    public int weaponStrength;
+
     public Weapons currentWeapon;
 
     public bool canCookMeat;

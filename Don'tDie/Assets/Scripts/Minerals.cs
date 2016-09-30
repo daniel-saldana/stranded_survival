@@ -3,20 +3,25 @@ using System.Collections;
 
 public class Minerals : MonoBehaviour
 {
+    BaseStatesOfPlayer bp;
 
-    public int health = 5;
 
     // Use this for initialization
     void Start ()
     {
-	
-	}
+        bp = FindObjectOfType<BaseStatesOfPlayer>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (health <= 0)
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.name == "Player")
         {
+            bp.oreHeld += 1;
             Destroy(gameObject);
         }
     }
