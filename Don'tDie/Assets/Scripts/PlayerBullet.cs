@@ -8,12 +8,14 @@ public class PlayerBullet : MonoBehaviour
 	public Rigidbody rig;
 
     public CharacterMovesLikeABoss val;
+    public Enemy food;
 
     // Use this for initialization
     void Start () 
 	{
 		rig = GetComponent<Rigidbody> ();
         val = FindObjectOfType<CharacterMovesLikeABoss>();
+
 
     }
 

@@ -11,6 +11,8 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public float speed;
     public float walkSpeed;
 	public float sprintSpeed;
+
+
     //public float distance;
 
  //  public  Animator anim;
@@ -34,7 +36,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         baseStates = GetComponent<BaseStatesOfPlayer>();
-      //  anim = GetComponent<Animator>();
 
         // loseText.SetActive(false);
 
@@ -138,17 +139,25 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         if (baseStates.wepCounter == 0)
         {
             baseStates.currentWeapon = Weapons.Punch;
-            baseStates.weaponStrength = 2;
+            baseStates.weaponStrength = 3;
         }
         if (baseStates.wepCounter == 1)
         {
             baseStates.currentWeapon = Weapons.Spear;
-            baseStates.weaponStrength = 6;
+            baseStates.weaponStrength = 10;
         }
         if (baseStates.wepCounter == 2)
         {
             baseStates.currentWeapon = Weapons.Gun;
-            baseStates.weaponStrength = 4;
+            baseStates.weaponStrength = 5;
+        }
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.name.StartsWith("Enemy"))
+        {
+            health.CurrentVal -= 5;            
         }
     }
 

@@ -18,13 +18,14 @@ public class Trees : MonoBehaviour
     {
         if (health <= 0)
         {
+            GameObject dest = (GameObject)Instantiate(Resources.Load("TreeBark"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
 	}
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Hand")
+        if(other.gameObject.name.StartsWith("PlayerBullet") || other.gameObject.name.StartsWith("Spear") || other.gameObject.name.StartsWith("Hand"))
         {
             health -= bs.weaponStrength;
         }

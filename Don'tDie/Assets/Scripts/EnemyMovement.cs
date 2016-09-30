@@ -10,19 +10,27 @@ public class EnemyMovement : MonoBehaviour
 	public float speed = 0.0f;
 	public bool active = false;
 
-    
+    public int health = 10;
+    public BaseStatesOfPlayer bs;
 
     // Use this for initialization
     void Start () 
 	{
 		player = GameObject.Find ("Player");
 		playerPos = player.transform;
-        
+        bs = FindObjectOfType<BaseStatesOfPlayer>();
     }
 
 
     public void Update()
     {
+        if (health <= 0)
+        {
+            GameObject dest = (GameObject)Instantiate(Resources.Load("RawMeat"), transform.position, transform.rotation);
+
+
+            Destroy(gameObject);
+        }
 
     }
 
@@ -45,12 +53,12 @@ public class EnemyMovement : MonoBehaviour
 			}
 		}
 	}
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.name.StartsWith ("PlayerBullet"))
+        if (other.gameObject.name.StartsWith("PlayerBullet") || other.gameObject.name.StartsWith("Spear") || other.gameObject.name.StartsWith("Hand"))
         {
-            Destroy(gameObject);
+            health -= bs.weaponStrength;
         }
     }
 }
