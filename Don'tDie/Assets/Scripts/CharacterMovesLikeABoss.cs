@@ -13,6 +13,8 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	public float sprintSpeed;
     //public float distance;
 
+ //  public  Animator anim;
+
 
 	public Stat health;
 	public Stat energy;
@@ -32,10 +34,11 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         baseStates = GetComponent<BaseStatesOfPlayer>();
+      //  anim = GetComponent<Animator>();
 
-       // loseText.SetActive(false);
-    
-	}
+        // loseText.SetActive(false);
+
+    }
 
 	public void Awake()
 	{
@@ -45,6 +48,8 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	
 	void Update ()
     {
+        baseStates.weaponStrength = 2;
+
         if (Input.GetKeyDown(switchWepInput))
         {
             SwitchWeapon();
@@ -74,7 +79,18 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 			baseStates.bulletsHeld -= 1;
         }
 
-		/*
+        if (Input.GetButtonDown("Fire1") && baseStates.spear > 0 && baseStates.currentWeapon == Weapons.Spear)
+        {
+            Instantiate(bulletPrefab, spawnPoint.transform.position, transform.rotation);
+            baseStates.spear -= 1;
+        }
+
+       //if (Input.GetButtonDown("Fire1") && baseStates.currentWeapon == Weapons.Punch)
+       // {
+        //    anim.SetTrigger("HandChop");
+       // }
+
+        /*
 		 * Figuring out a "Jump" button
 		 * 
 		 * if (Input.GetKey(KeyCode.Space))
@@ -122,14 +138,17 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         if (baseStates.wepCounter == 0)
         {
             baseStates.currentWeapon = Weapons.Punch;
+            baseStates.weaponStrength = 2;
         }
         if (baseStates.wepCounter == 1)
         {
             baseStates.currentWeapon = Weapons.Spear;
+            baseStates.weaponStrength = 6;
         }
         if (baseStates.wepCounter == 2)
         {
             baseStates.currentWeapon = Weapons.Gun;
+            baseStates.weaponStrength = 4;
         }
     }
 
