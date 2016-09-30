@@ -27,7 +27,7 @@ public class Trees : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Hand")
+        if(other.gameObject.name.StartsWith("PlayerBullet") || other.gameObject.name.StartsWith("Spear") || other.gameObject.name.StartsWith("Hand"))
         {
             health -= bs.weaponStrength;
         }

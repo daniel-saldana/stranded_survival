@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
 		bs = FindObjectOfType<BaseStatesOfPlayer>();
 		player = GameObject.Find ("Player");
 		playerPos = player.transform;
-        
+        bs = FindObjectOfType<BaseStatesOfPlayer>();
     }
 
 
@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.name.StartsWith ("PlayerBullet"))
+        if (other.gameObject.name.StartsWith("PlayerBullet") || other.gameObject.name.StartsWith("Spear") || other.gameObject.name.StartsWith("Hand"))
         {
 			health -= 8;
 			Destroy (other.gameObject);

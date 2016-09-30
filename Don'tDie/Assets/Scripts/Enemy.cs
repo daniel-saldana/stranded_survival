@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	
+        bs = FindObjectOfType<BaseStatesOfPlayer>();
 	}
 	
 	// Update is called once per frame
@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            GameObject dest = (GameObject)Instantiate(Resources.Load("RawMeat"), transform.position, transform.rotation);
+
+
             Destroy(gameObject);
         }
     }

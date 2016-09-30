@@ -46,7 +46,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 		sprintSpeed = sprintSpeed * Time.deltaTime;
 		walkSpeed = walkSpeed * Time.deltaTime;
         baseStates = GetComponent<BaseStatesOfPlayer>();
-      //  anim = GetComponent<Animator>();
 
         // loseText.SetActive(false);
 
