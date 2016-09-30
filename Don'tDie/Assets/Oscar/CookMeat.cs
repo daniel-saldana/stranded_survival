@@ -25,11 +25,16 @@ public class CookMeat : MonoBehaviour
         {
             baseState.canCookMeat = true;
         }
+
+        if (other.gameObject.name == "Wood" && baseState.treeBark > 1)
+        {
+            baseState.canWoodWork = true;
+        }
     }
 
     public void OnTriggerStay (Collider other)
     {
-        if(other.gameObject.name == "Stove" && Input.GetKeyDown(KeyCode.Space) && baseState.canCookMeat)
+        if(other.gameObject.name == "Stove" && Input.GetKeyDown(KeyCode.E) && baseState.canCookMeat)
         {
             if (baseState.rawMeat > 0)
             {
@@ -42,6 +47,20 @@ public class CookMeat : MonoBehaviour
                 Debug.Log("No Raw Meat To Cook");
             }
         }
+
+        if (other.gameObject.name == "Wood" && Input.GetKeyDown(KeyCode.E) && baseState.canWoodWork)
+        {
+            if (baseState.treeBark > 1)
+            {
+                baseState.treeBark -= 2;
+                baseState.spear += 1;
+            }
+
+            else
+            {
+                Debug.Log("No tree branches");
+            }
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -51,9 +70,9 @@ public class CookMeat : MonoBehaviour
             baseState.canCookMeat = false;
         }
 
-        if(other.gameObject.name == "Mineral")
+        if(other.gameObject.name == "Wood")
         {
-
+            baseState.canWoodWork = false;
         }
     }
 }

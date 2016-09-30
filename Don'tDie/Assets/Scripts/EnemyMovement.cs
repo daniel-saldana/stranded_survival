@@ -10,17 +10,20 @@ public class EnemyMovement : MonoBehaviour
 	public float speed = 0.0f;
 	public bool active = false;
 
+    
+
     // Use this for initialization
     void Start () 
 	{
 		player = GameObject.Find ("Player");
 		playerPos = player.transform;
+        
     }
 
 
     public void Update()
     {
-       
+
     }
 
 	// Update is called once per frame

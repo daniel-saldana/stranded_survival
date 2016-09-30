@@ -28,7 +28,7 @@ public class DayAndNight : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-       timeDisplay = FindObjectOfType<Text>();
+
     }
 	
 	// Update is called once per frame

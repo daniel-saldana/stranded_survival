@@ -7,8 +7,18 @@ public class RandomSpawner : MonoBehaviour
 
 	bool isSpawning = false;
 
-	public float minTime = 5.0f;
+	public float minTime = 2.0f;
 	public float maxTime = 15.0f;
+
+    public int randomSpawnRange;
+    public Vector3 randomRangeSpwan;
+
+    public DayAndNight nightTime;
+
+    public void Start()
+    {
+        nightTime = FindObjectOfType<DayAndNight>();
+    }
 
 	//Was working on a range for spawning area. Not sure what to do, could do an Array for this as well?
 	/*public float MinX = -200;
@@ -24,17 +34,29 @@ public class RandomSpawner : MonoBehaviour
 		Debug.Log ("Waiting for " + seconds + " seconds");
 
 		yield return new WaitForSeconds(seconds);
-		Instantiate (spawnables[index], transform.position, transform.rotation);
+		Instantiate (spawnables[index], randomRangeSpwan, transform.rotation);
 		isSpawning = false;
 	}
 	void Update ()
 	{
 		if (! isSpawning) 
 		{
-			isSpawning = true;
+            randomSpawnRange = Random.Range(-400, 400);
+            randomRangeSpwan = new Vector3(randomSpawnRange, 0.5f, randomSpawnRange);
+            isSpawning = true;
 			int spawnIndex = Random.Range(0, spawnables.Length);
 			StartCoroutine(SpawnObject(spawnIndex, Random.Range(minTime, maxTime)));
-		}
+
+            if (nightTime.am == false && maxTime > 4)
+            {
+                maxTime -= 1;
+            }
+            else if(nightTime.am)
+            {
+                maxTime = 15;
+            }
+        }
+     
 	}
 		
 	/*void SpawnableInstantiate() 

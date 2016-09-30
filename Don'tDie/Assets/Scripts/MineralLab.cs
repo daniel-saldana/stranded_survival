@@ -29,7 +29,7 @@ public class MineralLab : MonoBehaviour
 
 	public void OnTriggerStay (Collider other)
 	{
-		if(other.gameObject.name == "MineralLab" && Input.GetKeyDown(KeyCode.Space) && baseState.doRockScience)
+		if(other.gameObject.name == "MineralLab" && Input.GetKeyDown(KeyCode.E) && baseState.doRockScience)
 		{
 			if (baseState.oreHeld > 0)
 			{
