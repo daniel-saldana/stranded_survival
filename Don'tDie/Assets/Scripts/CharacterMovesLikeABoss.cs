@@ -8,18 +8,24 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 {
     public Vector3 pos;
     public Rigidbody rig;
-	public float speed;
-    public float walkSpeed;
-	public float sprintSpeed;
+	public float speed = 5;
+    public float walkSpeed = 5;
+	public float sprintSpeed = 15;
     //public float distance;
 
  //  public  Animator anim;
+	public int currentRawMeat = 0;
+	public int currentCookedMeat = 0;
+	public int currentMinerals = 0;
+	public int currentRawFruit = 0;
+	public int currentCookedFruit = 0;
+	public int currentSpears = 0;
 
 
 	public Stat health;
 	public Stat energy;
 
-    //public GameObject loseText = null;
+    public GameObject deathScreen = null;
 
     public GameObject bulletPrefab = null;
     public Vector3 vel;
@@ -33,6 +39,9 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     void Start ()
     {
         rig = GetComponent<Rigidbody>();
+		speed = speed * Time.deltaTime;
+		sprintSpeed = sprintSpeed * Time.deltaTime;
+		walkSpeed = walkSpeed * Time.deltaTime;
         baseStates = GetComponent<BaseStatesOfPlayer>();
       //  anim = GetComponent<Animator>();
 
@@ -44,6 +53,7 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 	{
 		health.Initialize ();
 		energy.Initialize ();
+		deathScreen.SetActive(false);
 	}
 	
 	void Update ()
@@ -124,7 +134,93 @@ public class CharacterMovesLikeABoss : MonoBehaviour
         }
        rig.velocity = pos * speed;
        vel = rig.velocity;
+
+		if (Input.GetKeyDown (KeyCode.Alpha1) && currentRawFruit > 0) 
+		{
+			health.CurrentVal += 5;
+			energy.CurrentVal += 5;
+			currentRawFruit -= 1;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha2) && currentRawMeat > 0) 
+		{
+			health.CurrentVal += 10;
+			energy.CurrentVal += 10;
+			currentRawMeat -= 1;
+		}
+
+		if (health.CurrentVal <=0)
+		{
+			speed = 0;
+			walkSpeed = 0;
+			sprintSpeed = 0;
+			deathScreen.SetActive (true);
+		}
+
+		if (health.CurrentVal >= health.MaxVal) 
+		{
+			health.CurrentVal = health.MaxVal;
+		}
+		if (energy.CurrentVal >= energy.MaxVal) 
+		{
+			energy.CurrentVal = energy.MaxVal;
+		}
     }
+
+	public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("Enemy")) 
+		{
+			health.CurrentVal -= 20;
+		}
+	}
+
+	public void OnTriggerEnter (Collider other)
+	{
+		if (other.gameObject.name.StartsWith ("Meat")) 
+		{
+			currentRawMeat++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Fruit")) 
+		{
+			currentRawFruit++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Minerals")) 
+		{
+			currentMinerals++;
+			Destroy (other.gameObject);
+		}
+
+		if (other.gameObject.name.StartsWith ("Spear")) 
+		{
+			currentSpears++;
+			Destroy (other.gameObject);
+		}
+	
+
+		/*
+		if (other.gameObject.name.StartsWith ("MineralPickup"))
+		{
+			mineralsHeld ++;
+		}
+		if (other.gameObject.name.StartsWith ("Fruit"))
+		{
+			fruitHeld ++;
+		}
+		if (other.gameObject.name.StartsWith ("SpearPickup"))
+		{
+			spearHeld = true;
+		}
+		if (other.gameObject.tag == ("Pickup"))
+		{
+			Destroy(other.gameObject);
+		}
+		*/
+	}
 
     void SwitchWeapon()
     {

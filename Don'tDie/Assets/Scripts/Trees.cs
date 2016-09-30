@@ -4,6 +4,7 @@ using System.Collections;
 public class Trees : MonoBehaviour
 {
 
+	//public GameObject spearPickupPrefab = null;
     public int health = 4;
 
     public BaseStatesOfPlayer bs;
@@ -29,4 +30,16 @@ public class Trees : MonoBehaviour
             health -= bs.weaponStrength;
         }
     }
+}
+	/*public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.name.StartsWith ("PlayerTool"))
+		{
+			health --;
+		}
+	}*/
+	/*public void OnDestroy()
+	{
+		Instantiate(spearPickupPrefab, gameObject.transform.position, gameObject.transform.rotation);
+	}*/
 }
